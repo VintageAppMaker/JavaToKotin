@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 public class JavaActivity extends AppCompatActivity {
     Button btnOk;
@@ -15,7 +16,11 @@ public class JavaActivity extends AppCompatActivity {
 
         first_findViewByID();
         two_setOnClickListner();
+        three_VariableTypeCasting();
+        four_properties();
     }
+
+
 
     // 1. findViewByID 비교
     private void first_findViewByID() {
@@ -29,7 +34,7 @@ public class JavaActivity extends AppCompatActivity {
 
     }
 
-    // 2. 람다식에 의한 코딩량
+    // 2. 과저의 자바는 람다식을 사용하지 않으므로 코딩량이 많다.
     private void two_setOnClickListner() {
         btnOk.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -40,4 +45,41 @@ public class JavaActivity extends AppCompatActivity {
             }
         });
     }
+
+    // 3. 변수의 형변환
+    private void three_VariableTypeCasting() {
+        // 변수의 형에맞게 반드시 알려주어야 한다.
+        TextView txt = (TextView)findViewById(R.id.txtMessage);
+    }
+
+    // 4. 프로퍼티 (Set / Get 구별하여 함수구분)
+    private void four_properties() {
+        Person p = new Person();
+        p.setname(" Test ");
+        WriteLn(p.getname());
+    }
+
+    int nLineNumber = 0;
+    private void WriteLn(String s){
+        TextView txt = (TextView) findViewById(R.id.txtMessage);
+        String sTotal = txt.getText().toString();
+        txt.setText( sTotal + "\n" + new Integer(nLineNumber).toString() + ":" +s);
+        nLineNumber++;
+    }
+
+    class Person{
+        private String name;
+
+        public String getname(){
+            return name + " 입니다";
+        }
+
+        public void setname(String s ){
+            this.name = getClass().getName() + ":" + s;
+        }
+    }
+
 }
+
+
+

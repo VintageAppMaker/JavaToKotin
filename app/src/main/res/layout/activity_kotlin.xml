@@ -25,9 +25,10 @@
                 android:text="Testing" />
 
             <TextView
+                android:id="@+id/txtMessage"
                 android:layout_margin="8dp"
                 android:text="Testing"
-                android:textColor="@color/colorAccent"
+                android:textColor="#FFFFFF"
                 android:textSize="14sp"
                 android:gravity="left"
                 android:layout_width="match_parent"
