@@ -6,7 +6,7 @@ import android.view.View
 import android.widget.TextView
 import kotlinx.android.synthetic.main.activity_kotlin.*
 
-class KotlinActivity : AppCompatActivity() {
+class KotlinActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,14 +55,6 @@ class KotlinActivity : AppCompatActivity() {
         WriteLn(p.name!!)
     }
 
-
-    var nLineNumber = 0
-    private fun WriteLn(s: String) {
-        val txt = txtMessage
-        val sTotal = txt!!.text.toString()
-        txt!!.text = sTotal + "\n" + nLineNumber.toString() + ":" + s
-        nLineNumber++
-    }
 
     inner class Person {
         var name: String? = null

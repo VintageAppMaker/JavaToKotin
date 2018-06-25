@@ -6,7 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class JavaActivity extends AppCompatActivity {
+public class JavaActivity extends BaseActivity{
     Button btnOk;
 
     @Override
@@ -57,14 +57,6 @@ public class JavaActivity extends AppCompatActivity {
         Person p = new Person();
         p.setname(" Test ");
         WriteLn(p.getname());
-    }
-
-    int nLineNumber = 0;
-    private void WriteLn(String s){
-        TextView txt = (TextView) findViewById(R.id.txtMessage);
-        String sTotal = txt.getText().toString();
-        txt.setText( sTotal + "\n" + new Integer(nLineNumber).toString() + ":" +s);
-        nLineNumber++;
     }
 
     class Person{
