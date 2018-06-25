@@ -1,12 +1,15 @@
 package com.psw.javatokotin;
 
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.support.v7.app.AlertDialog;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
+
+
+import java.util.ArrayList;
 
 public class JavaActivity extends BaseActivity{
     Button btnOk;
@@ -28,13 +31,8 @@ public class JavaActivity extends BaseActivity{
         });
 
         six_newFunction();
+        seven_collection_loop();
     }
-
-
-
-
-    // six_newFunction를 위한 인라인함수
-    int inlineFunc () { return 3; }
 
 
     // 1. findViewByID 비교
@@ -103,6 +101,13 @@ public class JavaActivity extends BaseActivity{
 
     }
 
+    // Java에서 Interface는 C/C++의 함수포인터의 역할을 한다.
+    // 적당한 이벤트핸들링을 하기위해서는 Interface 선언이 필수다.
+    interface onMyListner{
+        public void onClick();
+    }
+
+
     // 6. 함수형언어의 장점과 단점은 아직은 평가못하겠다.
     // 단지, 쓰잘데없는 지역변수를 선언하지 않고 처리할 수 있다는 점은
     // 함수형 언어의 매력 중에 하나가 아닐까 한다.
@@ -118,6 +123,49 @@ public class JavaActivity extends BaseActivity{
         });
     }
 
+    // six_newFunction를 위한 인라인함수
+    int inlineFunc () { return 3; }
+
+    // 7. collection과 루프
+    // 코틀린의 함수형 기법을 사용하다가 다시 java의 코딩을 접하면
+    // 무척 불편함을 느낀다.
+    private void seven_collection_loop() {
+
+        int sum = 3;
+        for(int i = 0; i < 11; i++){
+            if(i % 2 == 0 ){sum = sum + i;}
+        }
+        WriteLn(Integer.toString(sum));
+
+        ArrayList<View> arr = new ArrayList<View>();
+        arr.add(findViewById(R.id.txt1));
+        arr.add(findViewById(R.id.txt2));
+        arr.add(findViewById(R.id.txt3));
+        arr.add(findViewById(R.id.btn1));
+        arr.add(findViewById(R.id.btn2));
+
+        for(int i = 0; i < arr.size(); i++){
+            View v = arr.get(i);
+            if ( v instanceof TextView){
+                TextView txt = ( (TextView)v );
+                if (  txt.getText().toString().equals("A")  ){
+                    txt.setText("텍스트");
+                }
+            }
+        }
+
+        for(int i = 0; i < arr.size(); i++){
+            View v = arr.get(i);
+            if ( v instanceof Button){
+                Button btn = ( (Button)v );
+                btn.setText("버튼");
+                btn.setTextColor(Color.parseColor("#FF00FF"));
+            }
+        }
+
+    }
+
+
     class Person{
         private String name;
 
@@ -130,11 +178,6 @@ public class JavaActivity extends BaseActivity{
         }
     }
 
-    // Java에서 Interface는 C/C++의 함수포인터의 역할을 한다.
-    // 적당한 이벤트핸들링을 하기위해서는 Interface 선언이 필수다.
-    interface onMyListner{
-        public void onClick();
-    }
 
 }
 

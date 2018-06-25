@@ -1,6 +1,7 @@
 package com.psw.javatokotin
 
 import android.content.DialogInterface
+import android.graphics.Color
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
@@ -21,6 +22,7 @@ class KotlinActivity : BaseActivity() {
         four_properties()
         five_highfunction("[네]를 눌러야 호출됩니다", { WriteLn("[네]를 눌렀습니다")})
         six_newFunction()
+        seven_collection_loop()
     }
 
 
@@ -98,6 +100,30 @@ class KotlinActivity : BaseActivity() {
     internal fun inlineFunc(): Int {
         return 3
     }
+
+    // 7. collection과 루프
+    // 간단한 함수형 프로그래밍 기법으로 만족하는 경우
+    private fun seven_collection_loop() {
+
+        // example 1
+        var sum = 3
+        (0..10).filter { it % 2 == 0 }.map { sum = sum + it }.let{ WriteLn(sum.toString()) }
+
+        // example 2
+        // Android App에서 꽤나 마음에 들던 코딩방식
+        listOf(txt1, txt2, txt3, btn1, btn2)
+                .filter{ it is TextView}
+                .filter{ it.text == "A"}
+                .map { it.text = "텍스트" }
+
+
+        // example 3
+        listOf(txt1, txt2, txt3, btn1, btn2)
+                .filter{ it is Button}
+                .map { it.text = "버튼"; it.setTextColor(Color.parseColor("#FF00FF"))}
+
+    }
+
 
     inner class Person {
         var name: String? = null
