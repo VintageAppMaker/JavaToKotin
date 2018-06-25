@@ -1,8 +1,11 @@
 package com.psw.javatokotin
 
+import android.content.DialogInterface
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AlertDialog
 import android.view.View
+import android.widget.Button
 import android.widget.TextView
 import kotlinx.android.synthetic.main.activity_kotlin.*
 
@@ -16,7 +19,10 @@ class KotlinActivity : BaseActivity() {
         two_setOnClickListner()
         three_VariableTypeCasting()
         four_properties()
+        five_highfunction("[네]를 눌러야 호출됩니다", { WriteLn("[네]를 눌렀습니다")})
+        six_newFunction()
     }
+
 
     // 1. findViewByID 비교
     private fun first_findViewByID() {
@@ -55,6 +61,43 @@ class KotlinActivity : BaseActivity() {
         WriteLn(p.name!!)
     }
 
+    // 5. 고차함수(함수를 매개변수로 받는 함수)
+    // 고차함수를 사용하면 람다식을 이용하여
+    // 자바보다 편리한 이벤트핸들러를 구현할 수 있다.
+    private fun five_highfunction(s : String,  pFunc : () -> Unit){
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("확인")
+        builder.setMessage(s)
+        builder.setPositiveButton("네", DialogInterface.OnClickListener { dialog, which ->
+            pFunc()
+        })
+
+        builder.setNegativeButton("아니오", DialogInterface.OnClickListener { dialog, which ->
+
+        })
+
+        val alert = builder.create()
+        alert.show()
+    }
+
+    // 6. 함수형언어의 장점과 단점은 아직은 평가못하겠다.
+    // 단지, 쓰잘데없는 지역변수를 선언하지 않고 처리할 수 있다는 점은 매력적이다.
+    // 그것을 위해 코틀린에서는 let, apply, .. 등이 자주사용된다.
+    private fun six_newFunction() {
+        ( findViewById<View>(R.id.btnOk) as Button ).apply{
+            text = "이젠 누르면 반응합니다"
+            setOnClickListener {
+                inlineFunc().let{
+                    WriteLn(" inlineFunc()의 결과는 " + it + "입니다")
+                }
+            }
+        }
+    }
+
+    // six_newFunction를 위한 인라인함수
+    internal fun inlineFunc(): Int {
+        return 3
+    }
 
     inner class Person {
         var name: String? = null

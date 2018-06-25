@@ -1,10 +1,12 @@
 package com.psw.javatokotin;
 
-import android.support.v7.app.AppCompatActivity;
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class JavaActivity extends BaseActivity{
     Button btnOk;
@@ -18,8 +20,21 @@ public class JavaActivity extends BaseActivity{
         two_setOnClickListner();
         three_VariableTypeCasting();
         four_properties();
+        five_highfunction("[네]를 눌러야 호출됩니다", new onMyListner(){
+            @Override
+            public void onClick() {
+                WriteLn("[네]를 눌렀습니다");
+            }
+        });
+
+        six_newFunction();
     }
 
+
+
+
+    // six_newFunction를 위한 인라인함수
+    int inlineFunc () { return 3; }
 
 
     // 1. findViewByID 비교
@@ -59,6 +74,50 @@ public class JavaActivity extends BaseActivity{
         WriteLn(p.getname());
     }
 
+    // 5. 자바에서 이벤트핸들러를 사용할 경우,
+    // 함수를 정의하지않고 코딩을 하려고 한다면
+    // Interface를 이름없는 객체를 만들어 사용하는 것이 일반적이다.
+    // 무척 코드가 길어진다.
+    private void five_highfunction(String s, onMyListner onMyListner) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("확인");
+        builder.setMessage(s);
+
+        final onMyListner ol =onMyListner;
+        builder.setPositiveButton("네", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                ol.onClick();
+            }
+        });
+
+        builder.setNegativeButton("아니오", new DialogInterface.OnClickListener (){
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+
+        AlertDialog alert = builder.create();
+        alert.show();
+
+    }
+
+    // 6. 함수형언어의 장점과 단점은 아직은 평가못하겠다.
+    // 단지, 쓰잘데없는 지역변수를 선언하지 않고 처리할 수 있다는 점은
+    // 함수형 언어의 매력 중에 하나가 아닐까 한다.
+    // 당연히 자바에서는 안된다.
+    private void six_newFunction() {
+        Button btnMyOk = (Button)findViewById(R.id.btnOk);
+        btnMyOk.setText("이젠 누르면 반응합니다");
+        btnMyOk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                WriteLn( " inlineFunc()의 결과는 " +Integer.toString(inlineFunc()) + "입니다");
+            }
+        });
+    }
+
     class Person{
         private String name;
 
@@ -69,6 +128,12 @@ public class JavaActivity extends BaseActivity{
         public void setname(String s ){
             this.name = getClass().getName() + ":" + s;
         }
+    }
+
+    // Java에서 Interface는 C/C++의 함수포인터의 역할을 한다.
+    // 적당한 이벤트핸들링을 하기위해서는 Interface 선언이 필수다.
+    interface onMyListner{
+        public void onClick();
     }
 
 }

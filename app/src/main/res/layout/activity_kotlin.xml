@@ -17,12 +17,11 @@
             android:layout_height="match_parent">
 
             <Button
-                android:background="@color/colorAccent"
                 android:id="@+id/btnOk"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:text="Nothing" />
 
-                android:text="Testing" />
 
             <TextView
                 android:id="@+id/txtMessage"
