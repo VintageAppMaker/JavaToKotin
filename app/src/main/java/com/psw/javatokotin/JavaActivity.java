@@ -7,9 +7,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class JavaActivity extends BaseActivity{
     Button btnOk;
@@ -32,7 +34,10 @@ public class JavaActivity extends BaseActivity{
 
         six_newFunction();
         seven_collection_loop();
+        eight_singleton();
+        nine_init_time();
     }
+
 
 
     // 1. findViewByID 비교
@@ -70,6 +75,18 @@ public class JavaActivity extends BaseActivity{
         Person p = new Person();
         p.setname(" Test ");
         WriteLn(p.getname());
+    }
+
+    class Person{
+        private String name;
+
+        public String getname(){
+            return name + " 입니다";
+        }
+
+        public void setname(String s ){
+            this.name = getClass().getName() + ":" + s;
+        }
     }
 
     // 5. 자바에서 이벤트핸들러를 사용할 경우,
@@ -165,21 +182,52 @@ public class JavaActivity extends BaseActivity{
 
     }
 
-
-    class Person{
-        private String name;
-
-        public String getname(){
-            return name + " 입니다";
-        }
-
-        public void setname(String s ){
-            this.name = getClass().getName() + ":" + s;
-        }
+    // 8. Singleton
+    private void eight_singleton() {
+        SingleTonTest ins1 = SingleTonTest.getInstance();
+        ins1.getMyRef(this);
+        SingleTonTest.getInstance().getMyRef(this);
     }
 
+    // 9. 초기화시점 - 당연하지만, 사용하기 전에 값을 넣어야 한다.
+    Button btnMyOne = null;
+    private void nine_init_time(){
+
+        // 당연히 사용전에 대입을 해야한다.
+        btnMyOne = findViewById(R.id.btn1);
+        WriteLn("I'm init now!");
+        btnMyOne.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                WriteLn("I'm Clicked");
+            }
+        });
+    }
 
 }
+
+// 8. java의 innder Class에서는 static method를 사용못한다고 한다.
+// 알았던 것을 몰랐는 지, 원래몰랐는지.. 결론은 최근은 몰랐다.
+class SingleTonTest{
+    static SingleTonTest pInst = null;
+    String sTime  = "";
+
+    static public SingleTonTest getInstance(){
+        if (pInst == null){
+            pInst = new SingleTonTest();
+        }
+
+        return pInst;
+    }
+    public SingleTonTest(){
+        sTime = new Date().toString();
+    }
+    public void getMyRef(BaseActivity base) {
+        base.WriteLn(this.toString() +  ":" + sTime);
+    }
+}
+
+
 
 
 

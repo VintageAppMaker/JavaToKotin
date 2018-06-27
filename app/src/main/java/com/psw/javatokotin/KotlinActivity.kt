@@ -9,6 +9,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import kotlinx.android.synthetic.main.activity_kotlin.*
+import java.util.*
 
 class KotlinActivity : BaseActivity() {
 
@@ -23,6 +24,9 @@ class KotlinActivity : BaseActivity() {
         five_highfunction("[네]를 눌러야 호출됩니다", { WriteLn("[네]를 눌렀습니다")})
         six_newFunction()
         seven_collection_loop()
+        eight_singleton()
+        nine_init_time()
+
     }
 
 
@@ -61,6 +65,14 @@ class KotlinActivity : BaseActivity() {
         val p = Person()
         p.name = " Test "
         WriteLn(p.name!!)
+    }
+
+    inner class Person {
+        var name: String? = null
+            get() {return field + "입니다"}
+            set(s : String? ){
+                field = this.javaClass.toString() + ":" + s
+            }
     }
 
     // 5. 고차함수(함수를 매개변수로 받는 함수)
@@ -124,13 +136,33 @@ class KotlinActivity : BaseActivity() {
 
     }
 
+    // 8.Java의 싱글톤처럼 코딩이 필요하지는 않다. object 하나로 끝난다.
+    private fun eight_singleton() {
+        val ins1 = SingleTonTest
+        ins1.getMyRef(this)
+        SingleTonTest.getMyRef(this)
+    }
 
-    inner class Person {
-        var name: String? = null
-            get() {return field + "입니다"}
-            set(s : String? ){
-                field = this.javaClass.toString() + ":" + s
-            }
+    object SingleTonTest{
+        var sTime : String = ""
+        init{
+            sTime = "${Date().toString()}"
+        }
+
+        fun getMyRef(base : BaseActivity) = base.WriteLn("${this.toString()} : ${sTime}")
+    }
+
+    // kotlin의 lazy init은 물건이다!
+    val btnMyOne: Button? by lazy {
+        WriteLn("I'm init now!")
+        findViewById(R.id.btn1) as Button
+    }
+
+    // 9. kotlin의 lazy init은 컨트롤초기화에서 빛을 발한다.
+    private fun nine_init_time() {
+        // 변수를 사용하는 순간! 초기화를 1번만 실행한다.
+        btnMyOne!!.setOnClickListener { WriteLn("I'm Clicked") }
+        btnMyOne!!.setOnClickListener { WriteLn("I'm Clicked") }
     }
 }
 

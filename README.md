@@ -11,7 +11,9 @@
 - 프로퍼티 (Set / Get 구별)
 - let, apply, run 함수
 - 고차원 함수(Interface까지 만들필요없을 때)
-- 때로는 OOP가 불편할 때가 있다.
+- collection과 함수형 코딩스타일(map, filter)
+- Singleton 처리
+- 초기화시점(lazy)
 
 #### 단점(기존습관에 의한 불편함)
 - Nullable 변수
