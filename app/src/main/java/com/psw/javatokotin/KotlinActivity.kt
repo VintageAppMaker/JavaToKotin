@@ -26,6 +26,7 @@ class KotlinActivity : BaseActivity() {
         seven_collection_loop()
         eight_singleton()
         nine_init_time()
+        ten_nullsafe()
 
     }
 
@@ -164,6 +165,19 @@ class KotlinActivity : BaseActivity() {
         btnMyOne!!.setOnClickListener { WriteLn("I'm Clicked") }
         btnMyOne!!.setOnClickListener { WriteLn("I'm Clicked") }
     }
+
+    // 10. 함수형 스타일의 특징이 if문없이 일괄적인 코딩을 추구
+    // 이다보니 가끔은 다음과 같은 코딩스타일도 편하게 느껴질 때가 있다.
+    private fun ten_nullsafe() {
+        val btn  : Button? = findViewById(R.id.btn1)
+        btn?.apply { setTextSize(18f); setBackgroundColor(Color.parseColor("#EEFF00")) }
+
+        val btn2 : Button? = null
+        // 변수명?. 이런 식으로 코딩하면 변수가 null일 경우 실행안됨 (run, apply, let, 등등)
+        btn2?.apply { setTextSize(18f); setBackgroundColor(Color.parseColor("#EEFF00")) }
+
+    }
+
 }
 
 /*

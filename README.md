@@ -14,6 +14,8 @@
 - collection과 함수형 코딩스타일(map, filter)
 - Singleton 처리
 - 초기화시점(lazy)
+- nullcheck 스타일
+
 
 #### 단점(기존습관에 의한 불편함)
 - Nullable 변수

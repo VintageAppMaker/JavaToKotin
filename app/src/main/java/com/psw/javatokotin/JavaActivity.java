@@ -36,6 +36,7 @@ public class JavaActivity extends BaseActivity{
         seven_collection_loop();
         eight_singleton();
         nine_init_time();
+        ten_nullsafe();
     }
 
 
@@ -203,6 +204,24 @@ public class JavaActivity extends BaseActivity{
             }
         });
     }
+
+    // 10. null safe는 try catch 보다는 널채크가 더 보기좋음.
+    private void ten_nullsafe() {
+
+        Button btn1 = findViewById(R.id.btn1);
+        if(btn1 != null ){
+            btn1.setTextSize(18f);
+            btn1.setBackgroundColor(Color.parseColor("#EEFF00"));
+        }
+
+        Button btn2 = null;
+        if(btn2 != null ){
+            btn2.setTextSize(18f);
+            btn2.setBackgroundColor(Color.parseColor("#EEFF00"));
+        }
+
+    }
+
 
 }
 
