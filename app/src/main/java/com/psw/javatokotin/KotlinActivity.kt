@@ -27,6 +27,7 @@ class KotlinActivity : BaseActivity() {
         eight_singleton()
         nine_init_time()
         ten_nullsafe()
+        eleven_dataclass()
 
     }
 
@@ -175,6 +176,21 @@ class KotlinActivity : BaseActivity() {
         val btn2 : Button? = null
         // 변수명?. 이런 식으로 코딩하면 변수가 null일 경우 실행안됨 (run, apply, let, 등등)
         btn2?.apply { setTextSize(18f); setBackgroundColor(Color.parseColor("#EEFF00")) }
+
+    }
+
+
+    // 11. data class처리
+    private fun eleven_dataclass() {
+
+        data class User(var name : String, var age : Int = 30, var job : String?)
+
+        // 초기화를 하고 값을 넣는 코딩이라면 data 클래스가 자바보다 편하다. 몸체{}없이 ()안에
+        // 선언만해도 편하게 사용할 수 있다. copy 함수도 유용. [필드명 = 값] 형태로 저장가능함.
+        val init = User("공개안함", job = "입력없음")
+        WriteLn(init.toString())
+        val myInfo = init.copy(name = "박모씨", job = "일용직개발자")
+        WriteLn(myInfo.toString())
 
     }
 

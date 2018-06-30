@@ -37,9 +37,8 @@ public class JavaActivity extends BaseActivity{
         eight_singleton();
         nine_init_time();
         ten_nullsafe();
+        eleven_dataclass();
     }
-
-
 
     // 1. findViewByID 비교
     private void first_findViewByID() {
@@ -222,6 +221,40 @@ public class JavaActivity extends BaseActivity{
 
     }
 
+    // 11. 자바에서는 모든 복합데이터는 class로 처리한다.
+    private void eleven_dataclass() {
+        class User implements Cloneable {
+            String name = "";
+            int    age  = 30;
+            String job  = null;
+
+            public User clone() throws CloneNotSupportedException {
+                User usr = (User) super.clone();
+                usr.name = this.name;
+                usr.age  = this.age;
+                usr.job  = this.job;
+
+                return usr;
+            }
+
+        }
+
+        User init = new User();
+        init.name =  "공개안함";
+        init.job  =  "입력없음";
+
+        WriteLn(init.name + "_" + init.age + "_"+ init.job);
+        User myInfo = null;
+        try {
+            myInfo = init.clone();
+            myInfo.name = "박모씨";
+            myInfo.job  = "일용직개발자";
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
+        WriteLn(myInfo.name + "_" + myInfo.age + "_"+ myInfo.job);
+
+    }
 
 }
 

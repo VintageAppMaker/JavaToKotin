@@ -15,6 +15,7 @@
 - Singleton 처리
 - 초기화시점(lazy)
 - nullcheck 스타일
+- data class
 
 
 #### 단점(기존습관에 의한 불편함)
